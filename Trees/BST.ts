@@ -11,10 +11,6 @@ export default class BinarySearchTree<T> {
         this.root = undefined
     }
 
-    find(item: T): T | undefined {
-        return undefined
-    }
-
     public add(item: T): void {
         const node = { value: item } as BSTNode<T>
 
@@ -39,6 +35,27 @@ export default class BinarySearchTree<T> {
                 curr = curr.right
             }
         }
+    }
+
+    public find(item: T): T | undefined {
+
+        let curr = this.root;
+        while (curr) {
+            if (curr.value === item) {
+                return curr.value
+            }
+
+            if (curr.value > item) {
+                //left
+                curr = curr.left as BSTNode<T>
+            }
+            if (curr.value < item) {
+                //right
+                curr = curr.right
+            }
+        }
+
+        return undefined
     }
 }
 
