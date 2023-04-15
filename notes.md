@@ -191,6 +191,17 @@ export default class Queue<T> {
 }
 ```
 
+### Stack
+
+Stack could be implemented based on singly linkedlist, and it's the opposite of a queue!
+And the operations are just the same in the mean of Big O
+
+```ts
+
+
+
+```
+
 ## Recursion
 
 you don't really understand it until you completely understand it or feel like
