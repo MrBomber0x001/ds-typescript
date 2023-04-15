@@ -151,9 +151,44 @@ interface LinkedList<T> {
 
 Queue is a specific implementation of a linked list
 we insert at the tail, and pop from the head
+Enqueing and Dequeing is O(1),
+We're traversing!
 
 ```ts
+type QNode<T> = {
+    value: T;
+    next: QNode<T>
+}
 
+export default class Queue<T> {
+    public length: number;
+    private head?: QNode<T>
+    private tail?: QNode<T>
+
+    deque(): T | undefined{
+        if(!this.head) {
+            return undefind;
+        }
+        this.length--
+        const head = this.head;
+        this.head = this.head.next;
+    }
+    enque(item: T): void{
+        this.length++
+        const node = {value: item} as QNode<T>
+        if(!this.tail) {
+            this.head = this.tail = node
+            return
+        }
+
+        this.tail.next = node
+        this.tail = node
+    }
+
+    peek(): T | undefind {
+        return this.head?.value
+    }
+}
 ```
 
 ## Recursion
