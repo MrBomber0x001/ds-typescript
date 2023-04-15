@@ -67,6 +67,10 @@ export default function bs_list(arr: []number, needle: number): boolean {
 }
 ```
 
+<https://www.geeksforgeeks.org/searching-algorithms/>
+
+## Sorting
+
 ### Bubble sort
 
 sort in place!
@@ -112,10 +116,23 @@ export default function bubble_sort(arr: numbers[]): void {
 
 theres are other sorting algorithms, but requires other concetps like recursions!
 
+### QuickSort
+
+You've to fully understand recurio before moving to this kind of algorithm
+
+### MergeSort
+
+### InsertSort
+
+<https://www.geeksforgeeks.org/sorting-algorithms/>
+
 ## LinkedLists
 
 understanding them is crucial to understand trees and graphs!
 every linkedlist is a graph, technically a tree!
+
+### Singly LinkedLists
+
 Setting nexts and prevs is a constant time
 insertion => O(1)
 
@@ -197,12 +214,212 @@ Stack could be implemented based on singly linkedlist, and it's the opposite of 
 And the operations are just the same in the mean of Big O
 
 ```ts
+/**
+ * @desc Stack LinkedLists Based Implementaion
+ */
 
+type SNode<T> = {
+    value: T;
+    prev?: SNode<T>
+}
 
+export default class Stack<T> {
+    public length: number;
+    private top?: SNode<T>;
 
+    constructor() {
+        this.top = undefined
+        this.length = 0;
+    }
+    pop(): T | undefined {
+        this.length = Math.max(0, this.length - 1);
+        if (this.length === 0) {
+            this.top = undefined;
+        }
+        const top = this.top as SNode<T>
+        this.top = top.prev
+        return top.value
+    }
+
+    push(item: T): void {
+        const node = { value: item } as SNode<T>
+        this.length++
+        if (!this.top) {
+            this.top = node;
+            return
+        }
+        node.prev = this.top;
+        this.top = node;
+    }
+
+    peek(): T | undefined {
+        return this.top?.value
+    }
+}
+```
+
+### Doubly LinkedLists
+
+```ts
+// interface LinkedList<T> {
+//     get length(): number;
+//     insertAt(item: T, index: number): void;
+//     remove(item: T): T | undefined;
+//     removeAt(item: T, index: number): T | undefined;
+//     append(item: T): void;
+//     prepend(item: T): void;
+//     get(idx: number): T | undefined;
+// }
+
+type LNode<T> = {
+    value: T;
+    prev?: LNode<T>;
+    next?: LNode<T>;
+}
+
+export default class DoublyLinkedList<T>{
+    public length: number;
+    private head?: LNode<T>;
+    private tail?: LNode<T>;
+    constructor() {
+        this.length = 0;
+        this.head = undefined;
+
+    }
+    insertAt(item: T, idx: number): void {
+        if (idx > this.length) {
+            throw new Error("you can't insert.");
+            return;
+        }
+        this.length++;
+        if (idx == this.length) {
+            this.append(item);
+            return;
+        } else if (idx == 0) {
+            this.prepend(item);
+        }
+        let curr = this.getAt(idx) as LNode<T>;
+        const node = { value: item } as LNode<T>;
+        node.next = curr;
+        node.prev = curr.prev;
+        curr.prev = node;
+
+        if (node.prev) {
+            node.prev.next = curr;
+        }
+    }
+
+    remove(item: T): T | undefined {
+        let curr = this.head;
+
+        //getAt()
+        for (let i = 0; curr && i < this.length; i++) {
+            if (curr.next === item) {
+                break;
+            }
+            curr = curr.next
+        }
+        if (!curr) {
+            return undefined;
+        }
+        return this.removeNode(curr);
+    }
+
+    removeAt(item: T, idx: number): T | undefined {
+        const node = this.getAt(idx);
+        if (!node) {
+            return undefined
+        }
+
+        return this.removeNode(node);
+    }
+
+    append(item: T): void {
+        this.length++;
+        const node = { value: item } as LNode<T>;
+        if (!this.tail) {
+            this.head = this.tail = node;
+            return;
+        }
+
+        node.prev = this.tail;
+        this.tail.next = node;
+        this.tail = node;
+        return undefined
+    }
+
+    prepend(item: T): void {
+        const node = { value: item } as LNode<T>;
+        this.length++
+        if (!this.head) {
+            this.head = this.tail = node;
+            return;
+        }
+        node.next = this.head;
+        this.head.prev = node;
+        this.head = node;
+    }
+    get(idx: number): T | undefined {
+        const node = this.getAt(idx);
+        return node?.value
+    }
+    private removeNode(node: LNode<T>): T | undefined {
+        this.length--;
+        if (this.length === 0) {
+            const out = this.head?.value;
+            this.head = this.tail = undefined
+            return out;
+        }
+        if (node.prev) {
+            node.prev.next = node.next
+        }
+        if (node.next) {
+            node.next.prev = node.prev
+        }
+        if (node === this.head) {
+            this.head = node.next
+        }
+        if (node === this.tail) {
+            this.tail = node.prev
+        }
+        node.next = node.prev = undefined
+        return node.value
+
+    }
+    private getAt(idx: number): LNode<T> | undefined {
+        let curr = this.head;
+        for (let i = 0; curr && i < idx; ++i) {
+            curr = curr.next;
+        }
+
+        return curr;
+    }
+}
 ```
 
 ## Recursion
 
 you don't really understand it until you completely understand it or feel like
 I feel completely lost and then all sudden i felt like i understood it completely
+
+## Trees
+
+technically all datastructures are eventually Graphs, for example, single linkedlist is some sort of trees
+
+Trees have some strict rules:
+    - a node can only point to children
+    - children can't point to parent
+    - siblings can't point to each other
+    - there must be one root
+    - a leaf has no children
+
+the use cases are very verstaile, a tree can represent possible choices of a game! [ Decision tree ]
+Binary Search Tree which is a subset of Binary Tree: Stores data that are compareable [sortable] classicaly numbers
+
+#### BST
+
+The data is kept in particular order
+
+- Every parent node has at most two children
+- Every node to the left of a parent node is always less then the parent!
+- Every node to the right of a parent node is always greater then the parent!

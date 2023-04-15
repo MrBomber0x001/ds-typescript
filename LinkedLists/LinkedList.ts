@@ -22,7 +22,7 @@ export default class LinkedList<T> implements Linked<T>{
     }
 
     insert(item: T): T | undefined {
-
+        return undefined
     }
 
     insertAt(item: T, index: number): void {
@@ -38,7 +38,7 @@ export default class LinkedList<T> implements Linked<T>{
     }
 
     get(index: number): T | undefined {
-
+        return undefined
     }
 
 }
