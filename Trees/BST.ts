@@ -1,7 +1,7 @@
 type BSTNode<T> = {
     value: T;
-    left?: TNode<T>;
-    right?: TNode<T>;
+    left?: BSTNode<T>;
+    right?: BSTNode<T>;
 }
 
 
@@ -48,7 +48,12 @@ function main() {
     for (let i = 0; i < 10; ++i) {
         tree.add(i);
     }
-    const node = tree.find(10);
+    const node = tree.find(20);
+    if (!node) {
+        console.log(`can't find node`);
+    } else {
+        console.log(node)
+    }
 }
 
 
