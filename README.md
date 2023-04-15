@@ -5,12 +5,12 @@
   - [x] Linear
   - [x] Binary Search
   - [ ] Two crystal balls
-- [ ] Sorting
+- [x] Sorting
   - [x] Bubble Sort
   - [x] LinkedList Data Structure
   - [x] LinkedList Complexity
-  - [ ] Queue
-  - [ ] Stack
+  - [x] Queue
+  - [x] Stack
 - [ ] Arrays
   - [ ] ArrayList
   - [ ] AraryBuffer
