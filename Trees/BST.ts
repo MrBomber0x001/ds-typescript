@@ -1,4 +1,4 @@
-type BSTNode<T> = {
+export type BSTNode<T> = {
     value: T;
     left?: BSTNode<T>;
     right?: BSTNode<T>;
@@ -13,6 +13,7 @@ export default class BinarySearchTree<T> {
 
     public add(item: T): void {
         const node = { value: item } as BSTNode<T>
+
 
         if (!this.root) {
             this.root = node;
@@ -37,9 +38,15 @@ export default class BinarySearchTree<T> {
         }
     }
 
+    public delete(item: T): T | undefined {
+        return undefined
+    }
     public find(item: T): T | undefined {
 
         let curr = this.root;
+        if (!curr) {
+            return undefined;
+        }
         while (curr) {
             if (curr.value === item) {
                 return curr.value
@@ -54,8 +61,21 @@ export default class BinarySearchTree<T> {
                 curr = curr.right
             }
         }
-
         return undefined
+    }
+
+    public BFS(): T[] {
+        let visited: any[] = [],
+            queue: any[] = [],
+            node = this.root as BSTNode<T>;
+        queue.push(node);
+        while (queue.length) {
+            node = queue.shift(); // dequeud, then check the dequed one to check for right and left
+            visited.push(node);
+            if (node.left) queue.push(node.left)
+            if (node.right) queue.push(node.right)
+        }
+        return visited
     }
 }
 

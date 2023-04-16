@@ -485,8 +485,39 @@ function main() {
     }
 }
 
-
-
-
 main();
+```
+
+#### Traversing
+
+#### BFS
+
+BFS: visit every node of the same level, working horizontally.
+The solution presented here is iteratively
+
+```ts
+    public BFS(): T[] {
+        let visited: any[] = [],
+            queue: any[] = [],
+            node = this.root as BSTNode<T>;
+        queue.push(node);
+        while (queue.length) {
+            node = queue.shift(); // dequeud, then check the dequed one to check for right and left
+            visited.push(node);
+            if (node.left) queue.push(node.left)
+            if (node.right) queue.push(node.right)
+        }
+        return visited
+    }
+```
+
+#### DFS
+
+DFS has 3 types of orders [preOrder, inOrder, postOrder]
+
+```ts
+
+
+
+
 ```
