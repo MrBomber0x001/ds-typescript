@@ -1,4 +1,4 @@
-## tips
+# Data Structures
 
 npx jest `nameOfAlgorithm>`
 
@@ -10,7 +10,7 @@ Fixed size, contigeous memory chunks:
 - there's no "insertAt" or push or pop.
 - have only `.length`
 - you can only zeroish an item, not actually delete it and the indices are adjusted automatically!
-ArrayBuffer is a contigeous array of buffer you can create, then you can create views into this data!
+  ArrayBuffer is a contigeous array of buffer you can create, then you can create views into this data!
 
 ```js
 const a = new ArrayBuffer(6)
@@ -26,6 +26,8 @@ a16[2] = 0x4545
 
 a + width * offset => constant time [insertion&deletion] O(1)
 
+---
+
 ## Searching
 
 ### Linear search O(n)
@@ -39,7 +41,6 @@ export function lineaer_search(haystack: number[], needle: number): boolean {
     }
     return false
 }
-
 ```
 
 ### Binary Search O(LogN) or O(NLogN)
@@ -68,6 +69,8 @@ export default function bs_list(arr: []number, needle: number): boolean {
 ```
 
 <https://www.geeksforgeeks.org/searching-algorithms/>
+
+---
 
 ## Sorting
 
@@ -126,6 +129,10 @@ You've to fully understand recurio before moving to this kind of algorithm
 
 <https://www.geeksforgeeks.org/sorting-algorithms/>
 
+---
+
+
+
 ## LinkedLists
 
 understanding them is crucial to understand trees and graphs!
@@ -162,100 +169,10 @@ interface LinkedList<T> {
     prepend(item: T): void;
     get(index: number): T | undefined;
 }
-```
 
-### Queue
 
-Queue is a specific implementation of a linked list
-we insert at the tail, and pop from the head
-Enqueing and Dequeing is O(1),
-We're traversing!
 
-```ts
-type QNode<T> = {
-    value: T;
-    next: QNode<T>
-}
 
-export default class Queue<T> {
-    public length: number;
-    private head?: QNode<T>
-    private tail?: QNode<T>
-
-    deque(): T | undefined{
-        if(!this.head) {
-            return undefind;
-        }
-        this.length--
-        const head = this.head;
-        this.head = this.head.next;
-    }
-    enque(item: T): void{
-        this.length++
-        const node = {value: item} as QNode<T>
-        if(!this.tail) {
-            this.head = this.tail = node
-            return
-        }
-
-        this.tail.next = node
-        this.tail = node
-    }
-
-    peek(): T | undefind {
-        return this.head?.value
-    }
-}
-```
-
-### Stack
-
-Stack could be implemented based on singly linkedlist, and it's the opposite of a queue!
-And the operations are just the same in the mean of Big O
-
-```ts
-/**
- * @desc Stack LinkedLists Based Implementaion
- */
-
-type SNode<T> = {
-    value: T;
-    prev?: SNode<T>
-}
-
-export default class Stack<T> {
-    public length: number;
-    private top?: SNode<T>;
-
-    constructor() {
-        this.top = undefined
-        this.length = 0;
-    }
-    pop(): T | undefined {
-        this.length = Math.max(0, this.length - 1);
-        if (this.length === 0) {
-            this.top = undefined;
-        }
-        const top = this.top as SNode<T>
-        this.top = top.prev
-        return top.value
-    }
-
-    push(item: T): void {
-        const node = { value: item } as SNode<T>
-        this.length++
-        if (!this.top) {
-            this.top = node;
-            return
-        }
-        node.prev = this.top;
-        this.top = node;
-    }
-
-    peek(): T | undefined {
-        return this.top?.value
-    }
-}
 ```
 
 ### Doubly LinkedLists
@@ -397,6 +314,112 @@ export default class DoublyLinkedList<T>{
 }
 ```
 
+---
+
+
+
+
+
+### Queue
+
+Queue is a specific implementation of a linked list
+we insert at the tail, and pop from the head
+Enqueing and Dequeing is O(1),
+We're traversing!
+
+```ts
+type QNode<T> = {
+    value: T;
+    next: QNode<T>
+}
+
+export default class Queue<T> {
+    public length: number;
+    private head?: QNode<T>
+    private tail?: QNode<T>
+
+    deque(): T | undefined{
+        if(!this.head) {
+            return undefind;
+        }
+        this.length--
+        const head = this.head;
+        this.head = this.head.next;
+    }
+    enque(item: T): void{
+        this.length++
+        const node = {value: item} as QNode<T>
+        if(!this.tail) {
+            this.head = this.tail = node
+            return
+        }
+
+        this.tail.next = node
+        this.tail = node
+    }
+
+    peek(): T | undefind {
+        return this.head?.value
+    }
+}
+```
+
+----
+
+
+
+### Stack
+
+Stack could be implemented based on singly linkedlist, and it's the opposite of a queue!
+And the operations are just the same in the mean of Big O
+
+```ts
+/**
+ * @desc Stack LinkedLists Based Implementaion
+ */
+
+type SNode<T> = {
+    value: T;
+    prev?: SNode<T>
+}
+
+export default class Stack<T> {
+    public length: number;
+    private top?: SNode<T>;
+
+    constructor() {
+        this.top = undefined
+        this.length = 0;
+    }
+    pop(): T | undefined {
+        this.length = Math.max(0, this.length - 1);
+        if (this.length === 0) {
+            this.top = undefined;
+        }
+        const top = this.top as SNode<T>
+        this.top = top.prev
+        return top.value
+    }
+
+    push(item: T): void {
+        const node = { value: item } as SNode<T>
+        this.length++
+        if (!this.top) {
+            this.top = node;
+            return
+        }
+        node.prev = this.top;
+        this.top = node;
+    }
+
+    peek(): T | undefined {
+        return this.top?.value
+    }
+}
+```
+
+
+
 ## Recursion
 
 you don't really understand it until you completely understand it or feel like
@@ -519,9 +542,6 @@ DFS has 3 types of orders [preOrder, inOrder, postOrder]
 
 ```ts
 
-
-
-
 ```
 
 A common interview question that is frequently asked at technical coding interviews
@@ -571,3 +591,24 @@ const y = {foo: 3}
 ```
 
 So our key lookup breaks down this case!, because the hash must be *consistent*
+
+# LRU cache
+
+implementing LRU cache is often based on composing two datastructures
+
+1. LinkedLists (Doubly)
+
+2. HashMaps
+
+### Implementation
+
+```ts
+type Node<T> = {
+    value: T
+    node?: Node<T>
+}
+
+export default class LRU<t> {
+
+}
+```
