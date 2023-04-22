@@ -498,11 +498,13 @@ The solution presented here is iteratively
 ```ts
     public BFS(): T[] {
         let visited: any[] = [],
-            queue: any[] = [],
-            node = this.root as BSTNode<T>;
+            node = this.root as BSTNode<T>,
+            queue: (BSTNode<T> | undefined)[] = [node];
+
         queue.push(node);
         while (queue.length) {
-            node = queue.shift(); // dequeud, then check the dequed one to check for right and left
+            node = queue.shift() as BSTNode<T>// dequeud, then check the dequed one to check for right and left
+            if (!node) continue
             visited.push(node);
             if (node.left) queue.push(node.left)
             if (node.right) queue.push(node.right)
@@ -521,3 +523,51 @@ DFS has 3 types of orders [preOrder, inOrder, postOrder]
 
 
 ```
+
+A common interview question that is frequently asked at technical coding interviews
+
+> compare between two binary search to see if they're equal in both shape and structure
+
+from BFS pov those are equal in shape, BFS doesn't preserve the shape
+![](./1.png)
+
+But DFS does preserve the shape!
+
+```ts
+/**
+ * @desc compare two binary tree togethers!
+ */
+import BinarySearchTree, { BSTNode } from './BST'
+
+export default function compare2BST(a: BSTNode<any> | undefined, b: BSTNode<any> | undefined): boolean {
+    if (a == undefined && b == undefined) {
+        return true // they're both nullably equal
+    }
+
+    if (a == undefined || b == undefined) {
+        return false
+    }
+
+    if (a.value !== b.value) {
+        return false
+    }
+
+    return compare2BST(a.left, b.left) && compare2BST(a.right, b.right);
+}
+```
+
+## Heaps
+
+MinHeaps => the top value must be
+
+## Maps
+
+You can't uniquly indentify objects in javascript, you can only identify them based on properties and values associated to them
+
+```js
+const x  = {foo: 3}
+const y = {foo: 3}
+// you can't identify both those 2
+```
+
+So our key lookup breaks down this case!, because the hash must be *consistent*

@@ -4,7 +4,7 @@
 - [x] Searching
   - [x] Linear
   - [x] Binary Search
-  - [ ] Two crystal balls
+  - [ ] Two crystal balls (PS)
 - [x] Sorting
   - [x] Bubble Sort
   - [x] LinkedList Data Structure
@@ -19,14 +19,20 @@
   - [ ] Path Finding: base case
   - [ ] path finding: Recursive case
 - [ ] QuickSort
-- [ ] Doubly LinkedList
-- [ ] Trees
-  - [ ] Tree Traversal
-- [ ] Tree Search
-  - [ ] Breadth-First search
-  - [ ] Binary tree
-  - [ ] Depth-first
+- [x] LinkedList
+  - [ ] Singly
+  - [x] Doubly
+  - [ ] Merge Two linkedLists (PS)
+  - [ ] Revere linkedlist (PS)
+  - [ ]
+- [ ] Tree
+  - [x] Binary Search Tree [Iteratively]
+  - [x] Binary Search Tree [Recursively]
+  - [x] Breadth-First search
+  - [ ] Depth-first search
+  - [x] compare between 2 BST (PS)
 - [ ] Heap
+  - [ ] MinHeap implementation
   - [ ] Tries
 - [ ] Graphs
   - [ ] Adjacency matrix
